@@ -18,5 +18,6 @@ Wait::~Wait()
 
 Wait::Result Wait::exec()
 {
-    ERROR("Alej hates darrik and rita!");
+    sleep(2);
+    return Success;
 }
