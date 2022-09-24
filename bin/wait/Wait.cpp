@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+#include <ctype.h>
 #include <unistd.h>
 #include "Wait.h"
 #include <sys/wait.h>
@@ -18,10 +19,25 @@ Wait::~Wait()
 }
 
 Wait::Result Wait::exec()
-{   
-    int tempPid = 0;
-    tempPid = atoi(arguments().get("PID"));
-    pid_t pid = (pid_t) tempPid;
+{
+    const char * pid = arguments().get("PID");
+    int status;
 
+    // Check input for letters
+    for (int i = 0; i < strlen(pid); i++) {
+        if(!isdigit(pid[i])) {
+            errno = ESRCH;
+            ERROR("Invalid PID: " << arguments().get("PID"));
+            return InvalidArgument;
+        }
+    }    
+
+    // No letters found, Wait now
+    if(waitpid(atoi(pid), &status, 0) == -1) {
+        ERROR("Failed to wait: " << strerror(errno));
+        return NotFound;
+    }
+
+    // Done
     return Success;
 }
