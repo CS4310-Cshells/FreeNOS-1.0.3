@@ -26,7 +26,7 @@ Wait::Result Wait::exec()
     // Check input for letters
     for (int i = 0; i < strlen(pid); i++) {
         if(!isdigit(pid[i])) {
-            errno = ESRCH;
+            errno = EINVAL;
             ERROR("Invalid PID: " << arguments().get("PID"));
             return InvalidArgument;
         }
