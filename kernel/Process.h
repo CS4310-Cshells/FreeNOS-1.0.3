@@ -61,7 +61,7 @@ class Process
     };
 
     /**
-     * Represents the execution state of the Process
+     * Represents the execution state of the Prmocess
      */
     enum State
     {
@@ -69,6 +69,13 @@ class Process
         Sleeping,
         Waiting,
         Stopped
+    };
+
+    enum PriorityLevel
+    {
+      Min = 1,
+      Default = 3,
+      Max = 5
     };
 
   public:
@@ -125,6 +132,22 @@ class Process
      * @return Current status of the Process.
      */
     State getState() const;
+    
+    /**
+     * Get current process priority.
+     * 
+     * @return Priority of the Process.
+    */
+    PriorityLevel getPriority();
+
+    /**
+     * Set a process's priority level.
+     * 
+     * @param newPriority Priority to change the process to.
+     * 
+     * @return True when priority is successfully set.
+    */
+    bool setPriority(int newPriority);
 
     /**
      * Get MMU memory context.
@@ -251,6 +274,9 @@ class Process
 
     /** Current process status. */
     State m_state;
+
+    /** Current process priority level */
+    PriorityLevel m_priority;
 
     /** Waits for exit of this Process. */
     ProcessID m_waitId;

@@ -27,6 +27,7 @@ Process::Process(ProcessID id, Address entry, bool privileged, const MemoryMap &
     : m_id(id), m_map(map), m_shares(id)
 {
     m_state         = Stopped;
+    m_priority      = Default;
     m_parent        = 0;
     m_waitId        = 0;
     m_waitResult    = 0;
@@ -80,6 +81,24 @@ uint Process::getWaitResult() const
 Process::State Process::getState() const
 {
     return m_state;
+}
+
+Process::PriorityLevel Process::getPriority()
+{
+    return m_priority;
+}
+
+bool Process::setPriority(int newPriority)
+{
+    if (newPriority <= Max && newPriority >= Min) 
+    {
+        m_priority = (PriorityLevel) newPriority;
+        return true;
+    }
+    else 
+    {
+        return false;
+    }
 }
 
 ProcessShares & Process::getShares()
