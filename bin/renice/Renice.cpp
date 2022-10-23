@@ -25,5 +25,5 @@ Renice::Result Renice::exec()
     ProcessClient process;
     pid_t pid = atoi(arguments().get("PID"));
     PriorityLevel newPriority = atoi((arguments().get("PRIORITY")));
-    process.setPriority(pid, (int) newPriority);
+    process.setPriority(pid, newPriority);
 }
