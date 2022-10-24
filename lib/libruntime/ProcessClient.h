@@ -66,6 +66,8 @@ class ProcessClient
 
         /** Textual state of the process */
         String textState;
+
+        u8 priority;
     }
     Info;
 
@@ -85,7 +87,9 @@ class ProcessClient
      */
     ProcessID getParentID() const;
 
-    void setPriority(ProcessID pid, int newPriority);
+    u8 getPriority() const;
+
+    void changePriority(ProcessID pid, ProcessClient::Info &info, u8 newPriority);
 
     /**
      * Get process information by its ID.
@@ -130,6 +134,9 @@ class ProcessClient
 
     /** Our parent process identifier */
     static const ProcessID m_parent;
+
+    /** Process priority*/
+    static const u8 m_priority;
 };
 
 /**

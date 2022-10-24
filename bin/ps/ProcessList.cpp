@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2015 Niek Linnenbank
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -36,9 +36,9 @@ ProcessList::Result ProcessList::exec()
     bool showPriority = arguments().get("show-priority");
 
     // Print header
-    if (!showPriority)  
+    if (!showPriority)
         out << "ID  PARENT  USER GROUP STATUS     CMD\r\n";
-    else 
+    else
         out << "ID  PRI  PARENT  USER GROUP STATUS     CMD\r\n";
 
     // Loop processes
@@ -55,22 +55,22 @@ ProcessList::Result ProcessList::exec()
             char line[128];
             if (!showPriority)
             {
-            snprintf(line, sizeof(line),
-                    "%3d %7d %4d %5d %10s %32s\r\n",
-                     pid, info.kernelState.parent,
-                     0, 0, *info.textState, *info.command);
+                snprintf(line, sizeof(line),
+                         "%3d %7d %4d %5d %10s %32s\r\n",
+                         pid, info.kernelState.parent,
+                         0, 0, *info.textState, *info.command);
             }
             else
             {
                 snprintf(line, sizeof(line),
-                    "%3d %4d %7d %4d %5d %10s %32s\r\n",
-                     pid, info.kernelState.priority, info.kernelState.parent,
-                     0, 0, *info.textState, *info.command);
+                         "%3d %4d %7d %4d %5d %10s %32s\r\n",
+                         pid, info.kernelState.priority, info.kernelState.parent,
+                         0, 0, *info.textState, *info.command);
             }
             out << line;
         }
     }
-
+    
     // Output the table
     write(1, *out, out.length());
     return Success;

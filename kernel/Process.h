@@ -71,13 +71,6 @@ class Process
         Stopped
     };
 
-    enum PriorityLevel
-    {
-      Min = 1,
-      Default = 3,
-      Max = 5
-    };
-
   public:
 
     /**
@@ -138,16 +131,14 @@ class Process
      * 
      * @return Priority of the Process.
     */
-    PriorityLevel getPriority();
+    u8 getPriority();
 
     /**
      * Set a process's priority level.
      * 
      * @param newPriority Priority to change the process to.
-     * 
-     * @return True when priority is successfully set.
     */
-    bool setPriority(int newPriority);
+    void setPriority(u8 newPriority);
 
     /**
      * Get MMU memory context.
@@ -276,7 +267,7 @@ class Process
     State m_state;
 
     /** Current process priority level */
-    PriorityLevel m_priority;
+    u8 m_priority;
 
     /** Waits for exit of this Process. */
     ProcessID m_waitId;

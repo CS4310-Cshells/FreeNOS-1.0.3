@@ -24,6 +24,8 @@ const ProcessID ProcessClient::m_pid = ProcessCtl(SELF, GetPID, 0);
 
 const ProcessID ProcessClient::m_parent = ProcessCtl(SELF, GetParent, 0);
 
+const u8 ProcessClient::m_priority = ProcessCtl(SELF, GetPriority, 0);
+
 ProcessID ProcessClient::getProcessID() const
 {
     return m_pid;
@@ -34,9 +36,15 @@ ProcessID ProcessClient::getParentID() const
     return m_parent;
 }
 
-void ProcessClient::setPriority(ProcessID pid, int newPriority)
+u8 ProcessClient::getPriority() const
 {
-    ProcessCtl(pid, RenicePID, newPriority);
+    return m_priority;
+}
+
+void ProcessClient::changePriority(ProcessID pid, ProcessClient::Info &info, u8 newPriority)
+{
+    info.kernelState.priority = newPriority;
+    ProcessCtl(pid, ChangePriority, (Address) &info.kernelState);
 }
 
 ProcessClient::Result ProcessClient::processInfo(const ProcessID pid,
@@ -49,6 +57,7 @@ ProcessClient::Result ProcessClient::processInfo(const ProcessID pid,
         "Waiting",
         "Stopped"
     };
+    u8 priorityLevels[] = {1, 2, 3, 4, 5};
     const Arch::MemoryMap map;
     const Memory::Range range = map.range(MemoryMap::UserArgs);
     char cmd[128];
@@ -73,6 +82,7 @@ ProcessClient::Result ProcessClient::processInfo(const ProcessID pid,
     // Fill output
     info.command = cmd;
     info.textState = (pid == m_pid ? "Running" : textStates[info.kernelState.state]);
+    info.priority = priorityLevels[info.kernelState.priority - 1];
 #endif /* __HOST__ */
 
     return Success;
