@@ -36,6 +36,9 @@ Features
 * User and kernel code written from scratch in C++
 * Very small microkernel (~2K lines of C++ code including a tiny part in assembly)
 * Builds with recent GCC (http://gcc.gnu.org/), LLVM (http://www.llvm.org/) and SCons (http://www.scons.org/) versions on POSIX systems
+* Process:
+    * Process with priority
+    * Ability to change priority of processes
 
 Host Setup
 ==========

@@ -25,6 +25,7 @@ Renice::Result Renice::exec()
     ProcessClient process;
     pid_t pid = atoi(arguments().get("PID"));
     u8 newPriority = atoi((arguments().get("PRIORITY")));
+
     if (arguments().get("priority"))
     {
         if (newPriority < 1 || newPriority > 5)
@@ -32,13 +33,15 @@ Renice::Result Renice::exec()
             ERROR("invalid priority '" << arguments().get("PRIORITY") << "'");
             return InvalidArgument;
         }
+
         ProcessClient::Info info;
         u8 oldPriority = process.getPriority();
         process.changePriority(pid, info, newPriority);
+
         String out;
         char line[128];
         snprintf(line, sizeof(line),
-                 "changed %3d priority from %1d to %1d\r\n",
+                 "changed %d priority from %d to %d\r\n",
                  pid, oldPriority, newPriority);
         out << line;
         write(1, *out, out.length());

@@ -56,8 +56,7 @@ typedef enum ProcessOperation
     Stop,
     Resume,
     Reset
-}
-ProcessOperation;
+} ProcessOperation;
 
 /**
  * Process information structure, used for Info.
@@ -75,11 +74,10 @@ typedef struct ProcessInfo
 
     /** Process Priority Level */
     u8 priority;
-}
-ProcessInfo;
+} ProcessInfo;
 
 /** Operator to print a ProcessOperation to a Log */
-Log & operator << (Log &log, ProcessOperation op);
+Log &operator<<(Log &log, ProcessOperation op);
 
 /**
  * Prototype for user applications. Process management related operations.
@@ -100,7 +98,7 @@ inline API::Result ProcessCtl(const ProcessID proc,
                               const Address addr = 0,
                               const Address output = 0)
 {
-    return (API::Result) trapKernel4(API::ProcessCtlNumber, proc, op, addr, output);
+    return (API::Result)trapKernel4(API::ProcessCtlNumber, proc, op, addr, output);
 }
 
 /**

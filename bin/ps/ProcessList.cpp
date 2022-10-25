@@ -70,7 +70,7 @@ ProcessList::Result ProcessList::exec()
             out << line;
         }
     }
-    
+
     // Output the table
     write(1, *out, out.length());
     return Success;

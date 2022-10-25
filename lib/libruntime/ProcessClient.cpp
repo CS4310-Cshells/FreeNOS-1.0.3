@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2015 Niek Linnenbank
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -44,37 +44,36 @@ u8 ProcessClient::getPriority() const
 void ProcessClient::changePriority(ProcessID pid, ProcessClient::Info &info, u8 newPriority)
 {
     info.kernelState.priority = newPriority;
-    ProcessCtl(pid, ChangePriority, (Address) &info.kernelState);
+    ProcessCtl(pid, ChangePriority, (Address)&info.kernelState);
 }
 
 ProcessClient::Result ProcessClient::processInfo(const ProcessID pid,
                                                  ProcessClient::Info &info) const
 {
 #ifndef __HOST__
-    const char * textStates[] = {
+    const char *textStates[] = {
         "Ready",
         "Sleeping",
         "Waiting",
-        "Stopped"
-    };
+        "Stopped"};
     u8 priorityLevels[] = {1, 2, 3, 4, 5};
     const Arch::MemoryMap map;
     const Memory::Range range = map.range(MemoryMap::UserArgs);
     char cmd[128];
 
-    const API::Result result = ProcessCtl(pid, InfoPID, (Address) &info.kernelState);
+    const API::Result result = ProcessCtl(pid, InfoPID, (Address)&info.kernelState);
     switch (result)
     {
-        case API::Success:
-            break;
-        case API::NotFound:
-            return NotFound;
-        default:
-            return IOError;
+    case API::Success:
+        break;
+    case API::NotFound:
+        return NotFound;
+    default:
+        return IOError;
     }
 
     // Read the full command
-    if (VMCopy(pid, API::Read, (Address) cmd, range.virt, sizeof(cmd)) != API::Success)
+    if (VMCopy(pid, API::Read, (Address)cmd, range.virt, sizeof(cmd)) != API::Success)
     {
         return IOError;
     }

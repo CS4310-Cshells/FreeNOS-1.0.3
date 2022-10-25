@@ -70,23 +70,24 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
     for (Size i = 0; i < p5_queue.count(); i++)
     {
         Process *p = p5_queue.pop();
+        u8 pPriority = p->getPriority();
 
-        if (p->getPriority() == 4)
+        if (pPriority == 4)
         {
             p4_queue.push(p);
             continue;
         }
-        else if (p->getPriority() == 3)
+        else if (pPriority == 3)
         {
             p3_queue.push(p);
             continue;
         }
-        else if (p->getPriority() == 2)
+        else if (pPriority == 2)
         {
             p2_queue.push(p);
             continue;
         }
-        else if (p->getPriority() == 1)
+        else if (pPriority == 1)
         {
             p1_queue.push(p);
             continue;
@@ -100,23 +101,24 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
     for (Size i = 0; i < p4_queue.count(); i++)
     {
         Process *p = p4_queue.pop();
+        u8 pPriority = p->getPriority();
 
-        if (p->getPriority() == 5)
+        if (pPriority == 5)
         {
             p5_queue.push(p);
             continue;
         }
-        else if (p->getPriority() == 3)
+        else if (pPriority == 3)
         {
             p3_queue.push(p);
             continue;
         }
-        else if (p->getPriority() == 2)
+        else if (pPriority == 2)
         {
             p2_queue.push(p);
             continue;
         }
-        else if (p->getPriority() == 1)
+        else if (pPriority == 1)
         {
             p1_queue.push(p);
             continue;
@@ -130,23 +132,24 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
     for (Size i = 0; i < p3_queue.count(); i++)
     {
         Process *p = p3_queue.pop();
+        u8 pPriority = p->getPriority();
 
-        if (p->getPriority() == 5)
+        if (pPriority == 5)
         {
             p5_queue.push(p);
             continue;
         }
-        else if (p->getPriority() == 4)
+        else if (pPriority == 4)
         {
             p4_queue.push(p);
             continue;
         }
-        else if (p->getPriority() == 2)
+        else if (pPriority == 2)
         {
             p2_queue.push(p);
             continue;
         }
-        else if (p->getPriority() == 1)
+        else if (pPriority == 1)
         {
             p1_queue.push(p);
             continue;
@@ -160,23 +163,24 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
     for (Size i = 0; i < p2_queue.count(); i++)
     {
         Process *p = p2_queue.pop();
+        u8 pPriority = p->getPriority();
 
-        if (p->getPriority() == 5)
+        if (pPriority == 5)
         {
             p5_queue.push(p);
             continue;
         }
-        else if (p->getPriority() == 4)
+        else if (pPriority == 4)
         {
             p4_queue.push(p);
             continue;
         }
-        else if (p->getPriority() == 3)
+        else if (pPriority == 3)
         {
             p3_queue.push(p);
             continue;
         }
-        else if (p->getPriority() == 1)
+        else if (pPriority == 1)
         {
             p1_queue.push(p);
             continue;
@@ -190,23 +194,24 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
     for (Size i = 0; i < p1_queue.count(); i++)
     {
         Process *p = p1_queue.pop();
+        u8 pPriority = p->getPriority();
 
-        if (p->getPriority() == 5)
+        if (pPriority == 5)
         {
             p5_queue.push(p);
             continue;
         }
-        else if (p->getPriority() == 4)
+        else if (pPriority == 4)
         {
             p4_queue.push(p);
             continue;
         }
-        else if (p->getPriority() == 3)
+        else if (pPriority == 3)
         {
             p3_queue.push(p);
             continue;
         }
-        else if (p->getPriority() == 2)
+        else if (pPriority == 2)
         {
             p2_queue.push(p);
             continue;
